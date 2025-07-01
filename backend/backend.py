@@ -1,9 +1,23 @@
+# ✅ Test update by Keerthi on 30 June 2025
+
+
+
 import os, pickle, faiss
 from sentence_transformers import SentenceTransformer
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Use same multilingual model
 model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
