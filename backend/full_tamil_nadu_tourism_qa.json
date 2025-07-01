@@ -1,5 +1,45 @@
 {
   "tourism_questions_tamil_nadu": [
+  {
+  "question": "Hi",
+  "answer": "Hello! Welcome to Tamil Nadu Tourism Assistant. How can I help you today?"
+   },
+   {
+  "question": "Hello",
+  "answer": "Hi there! Looking for spiritual trips, heritage sites, or wellness retreats in Tamil Nadu?"
+   },
+   {
+  "question": "Vanakkam",
+  "answer": "Vanakkam! I’m here to guide you on your Tamil Nadu travel journey."
+   },
+   {
+  "question": "How can you help me?",
+  "answer": "I can assist you with temple info, homestays, weather updates, yoga spots, and local culture."
+   },
+   {
+  "question": "What can you do?",
+  "answer": "I can help plan your trip, suggest places, share travel tips, and answer questions about Tamil Nadu."
+   },
+   {
+  "question": "Who are you?",
+  "answer": "I'm your AI-powered tourism guide for Tamil Nadu, here to enhance your travel experience!"
+   },
+   {
+  "question": "Help",
+  "answer": "You can ask me about places, temples, food, trekking, local events, or medical help nearby."
+   },
+  {
+  "question": "Thanks",
+  "answer": "You’re welcome! Have a wonderful journey through Tamil Nadu."
+  },
+  {
+  "question": "Bye",
+  "answer": "Goodbye! Hope to assist you again on your next adventure in Tamil Nadu."
+  },
+  {
+  "question": "Are you a real person?",
+  "answer": "I’m an AI chatbot trained to help you explore Tamil Nadu with accurate information and friendly support."
+  },
     {
       "question": "What is the significance of the Meenakshi Temple in Madurai?",
       "answer": "Meenakshi Temple symbolizes divine love and is a major Dravidian architectural marvel."
