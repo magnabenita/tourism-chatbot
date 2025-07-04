@@ -154,13 +154,15 @@ st.markdown("""
             z-index: 1000;
             padding: 1rem;
             text-align: center;
-            font-size: 2vw;
+            font-size: 2.4vw;
             font-weight: bold;
-            color: #6A1B9A;
+            font-family: 'Apple Chancery', cursive;
+            color: #d3d3d3;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 st.markdown('<div class="fixed-header">🌄 Discover the Wonders of Tamil Nadu – Powered by AI</div>', unsafe_allow_html=True)
 
@@ -214,4 +216,3 @@ if query and query.strip():
     st.rerun()
 elif query:
     st.warning("Please enter a message.")
-
