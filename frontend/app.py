@@ -39,7 +39,7 @@ if base64_img:
     st.markdown(f"""
         <style>
             .stApp {{
-                background-image: linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0.9)),
+                background-image: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.3)),
                                   url("data:image/jpg;base64,{base64_img}");
                 background-size: cover;
                 background-position: center;
