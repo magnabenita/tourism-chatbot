@@ -41,11 +41,10 @@ if base64_img:
             .stApp {{
                 background-image: linear-gradient(
                     to bottom,
-                    rgba(255,255,255,0.2),  /* Top overlay */
-                    rgba(255,255,255,0.3)   /* Bottom overlay */
+                    rgba(255,255,255,0.2),
+                    rgba(255,255,255,0.3)
                 ),
                 url("data:image/jpg;base64,{base64_img}");
-                
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -55,10 +54,10 @@ if base64_img:
         </style>
     """, unsafe_allow_html=True)
 else:
-    st.warning("Background image not found. Make sure 'Thanjai.jpg' is in the correct folder.")
+    st.warning("⚠️ Background image not found. Place 'Thanjai.jpg' in the app folder.")
 
 # ------------------------------
-# Custom CSS for Layout
+# Custom CSS for Styling
 # ------------------------------
 st.markdown("""
     <style>
@@ -80,15 +79,9 @@ st.markdown("""
         section[data-testid="stSidebar"] {
             background-color: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.2);
-            color: #000 !important;
         }
 
-        section[data-testid="stSidebar"] .block-container {
-            background-color: transparent;
-        }
-            
         .chat-container {
             margin-top: 100px;
             margin-bottom: 130px;
@@ -129,14 +122,9 @@ st.markdown("""
             box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
 
-        textarea, .stButton>button {
-            font-size: 16px !important;
-        }}
-
         @media (max-width: 768px) {
             .fixed-header {
                 font-size: 5vw;
-                padding: 1rem 0.5rem;
             }
             .chat-container {
                 height: 55vh;
@@ -151,22 +139,22 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ------------------------------
-# Static Welcome Header (Fixed)
+# Static Welcome Header
 # ------------------------------
 st.markdown('<div class="fixed-header">🌄 Discover the Wonders of Tamil Nadu – Powered by AI</div>', unsafe_allow_html=True)
 
 # ------------------------------
-# Sidebar - Chat History Summary
+# Sidebar: Chat History
 # ------------------------------
 with st.sidebar:
     st.title("🕘 Chat History")
     if st.button("🗑 Clear Chat History"):
         st.session_state.chat_history = []
-    for i, item in enumerate(reversed(st.session_state.chat_history)):
+    for item in reversed(st.session_state.chat_history):
         st.markdown(f"🗨 {item['question'][:30]}...")
 
 # ------------------------------
-# Chat Display Section
+# Chat History UI
 # ------------------------------
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
@@ -183,7 +171,7 @@ for chat in st.session_state.chat_history:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ------------------------------
-# Chat Input Handler
+# Chat Input
 # ------------------------------
 query = st.chat_input("Type your message here...")
 
@@ -192,25 +180,7 @@ if query and query.strip():
     try:
         response = requests.post("http://127.0.0.1:8000/query", json={"query": query.strip(), "lang": lang})
         if response.status_code == 200:
-            answer = response.json().get("answer", "Sorry, I couldn't find an answer.")
-        else:
-            answer = "Backend error."
-    except Exception as e:
-        answer = f"Connection error: {e}"
-
-    st.session_state.chat_history.append({"question": query, "answer": answer})
-    st.rerun()
-
-
-# ------------------------------
-# Handle Submission
-# ------------------------------
-if query and query.strip():
-    lang = detect_language(query)
-    try:
-        response = requests.post("http://127.0.0.1:8000/query", json={"query": query.strip(), "lang": lang})
-        if response.status_code == 200:
-            answer = response.json().get("answer", "Sorry, I couldn't find an answer.")
+            answer = response.json().get("answer", "🤖 Sorry, I couldn't find an answer.")
         else:
             answer = "⚠️ Backend error. Please try again later."
     except Exception as e:
@@ -218,8 +188,6 @@ if query and query.strip():
 
     st.session_state.chat_history.append({"question": query, "answer": answer})
     st.rerun()
-elif query:
-    st.warning("Please enter a message.")
 
 # ------------------------------
 # Footer
