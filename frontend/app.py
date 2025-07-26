@@ -141,7 +141,7 @@ query = st.chat_input("Type your message here...")
 
 if query and query.strip():
     lang = detect_language(query)
-    BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+    BACKEND_URL = os.getenv("BACKEND_URL", "https://tourism-chatbot1.onrender.com")
 
     try:
         response = requests.post(f"{BACKEND_URL}/query", json={"query": query.strip()})
