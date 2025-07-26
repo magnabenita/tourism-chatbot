@@ -193,7 +193,7 @@ st.markdown("""
     <hr>
     <div style="text-align:center; font-size:14px; background:#f9f9f9; padding:15px; border-radius:12px; margin-top:20px;">
         <p><strong>Note:</strong> This is a prototype version of the Tamil Nadu Tourism AI Assistant. It may produce incomplete or incorrect responses.</p>
-        <p><em>Try asking:</em> “Top temples in Madurai” | “Where to go for Pongal celebration?”</p>
+        <p><em>Try asking:</em> “Can you explain the mythology behind Rameswaram?” | “What is the origin of Chettinad cuisine?”</p>
         <p><strong>Created by:</strong> Magna, Vasundhara, Anu, Aarmitha, Keerthi, Adhvaitha</p>
     </div>
 """, unsafe_allow_html=True)
