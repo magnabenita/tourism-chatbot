@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Use same multilingual model
-model = SentenceTransformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
 
 base_path = os.path.dirname(__file__)
 
