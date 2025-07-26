@@ -32,7 +32,7 @@ def get_base64_image(image_path):
     except FileNotFoundError:
         return None
 
-bg_img_path = "Thanjai.jpg"
+bg_img_path = os.path.join(os.path.dirname(__file__), "Thanjai.jpg")
 base64_img = get_base64_image(bg_img_path)
 
 if base64_img:
@@ -48,16 +48,14 @@ if base64_img:
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                font-family: 'Segoe UI', sans-serif;
-                color: #333;
             }}
         </style>
     """, unsafe_allow_html=True)
 else:
-    st.warning("⚠️ Background image not found. Place 'Thanjai.jpg' in the app folder.")
+    st.warning("⚠️ Background image not found. Make sure 'Thanjai.jpg' is present in the same folder as app.py.")
 
 # ------------------------------
-# Custom CSS for Styling
+# Header CSS & Sidebar
 # ------------------------------
 st.markdown("""
     <style>
@@ -75,13 +73,10 @@ st.markdown("""
             font-weight: 600;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
         section[data-testid="stSidebar"] {
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(255,255,255,0.15);
             backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
         }
-
         .chat-container {
             margin-top: 100px;
             margin-bottom: 130px;
@@ -89,7 +84,6 @@ st.markdown("""
             overflow-y: auto;
             padding: 0 25px;
         }
-
         .user-msg, .bot-msg {
             padding: 14px 20px;
             border-radius: 20px;
@@ -98,48 +92,21 @@ st.markdown("""
             font-size: 1.05rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .user-msg {
             background-color: #DCE775;
             margin-left: auto;
             color: #33691E;
         }
-
         .bot-msg {
             background-color: #9575CD;
             margin-right: auto;
             color: white;
         }
-
-        .chat-input {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.95);
-            padding: 12px 25px;
-            z-index: 999;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-        }
-
-        @media (max-width: 768px) {
-            .fixed-header {
-                font-size: 5vw;
-            }
-            .chat-container {
-                height: 55vh;
-                padding: 0 15px;
-            }
-            .user-msg, .bot-msg {
-                font-size: 0.95rem;
-                max-width: 90%;
-            }
-        }
     </style>
 """, unsafe_allow_html=True)
 
 # ------------------------------
-# Static Welcome Header
+# Static Header
 # ------------------------------
 st.markdown('<div class="fixed-header">🌄 Discover the Wonders of Tamil Nadu – Powered by AI</div>', unsafe_allow_html=True)
 
@@ -159,10 +126,7 @@ with st.sidebar:
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
 if not st.session_state.chat_history:
-    st.markdown(
-        '<div class="bot-msg">Hi there! 👋 Ask me about temples, places, festivals or anything in Tamil Nadu tourism.</div>',
-        unsafe_allow_html=True
-    )
+    st.markdown('<div class="bot-msg">Hi there! 👋 Ask me about temples, places, festivals or anything in Tamil Nadu tourism.</div>', unsafe_allow_html=True)
 
 for chat in st.session_state.chat_history:
     st.markdown(f'<div class="user-msg">{chat["question"]}</div>', unsafe_allow_html=True)
@@ -171,14 +135,16 @@ for chat in st.session_state.chat_history:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ------------------------------
-# Chat Input
+# Chat Input & API Request
 # ------------------------------
 query = st.chat_input("Type your message here...")
 
 if query and query.strip():
     lang = detect_language(query)
+    BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+
     try:
-        response = requests.post("http://127.0.0.1:8000/query", json={"query": query.strip(), "lang": lang})
+        response = requests.post(f"{BACKEND_URL}/query", json={"query": query.strip()})
         if response.status_code == 200:
             answer = response.json().get("answer", "🤖 Sorry, I couldn't find an answer.")
         else:
