@@ -16,6 +16,8 @@ def detect_language(text):
 # ------------------------------
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
+if "initial_bot_msg_shown" not in st.session_state:
+    st.session_state.initial_bot_msg_shown = False
 
 # ------------------------------
 # Page Configuration
@@ -52,10 +54,10 @@ if base64_img:
         </style>
     """, unsafe_allow_html=True)
 else:
-    st.warning("⚠️ Background image not found. Make sure 'Thanjai.jpg' is present in the same folder as app.py.")
+    st.warning("⚠️ Background image not found. Make sure 'Thanjai.jpg' is present.")
 
 # ------------------------------
-# Header CSS & Sidebar
+# Header & Sidebar Styling
 # ------------------------------
 st.markdown("""
     <style>
@@ -105,28 +107,27 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ------------------------------
-# Static Header
-# ------------------------------
 st.markdown('<div class="fixed-header">🌄 Discover the Wonders of Tamil Nadu – Powered by AI</div>', unsafe_allow_html=True)
 
 # ------------------------------
-# Sidebar: Chat History
+# Sidebar
 # ------------------------------
 with st.sidebar:
     st.title("🕘 Chat History")
     if st.button("🗑 Clear Chat History"):
         st.session_state.chat_history = []
+        st.session_state.initial_bot_msg_shown = False
     for item in reversed(st.session_state.chat_history):
         st.markdown(f"🗨 {item['question'][:30]}...")
 
 # ------------------------------
-# Chat History UI
+# Chat Display
 # ------------------------------
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
-if not st.session_state.chat_history:
+if not st.session_state.initial_bot_msg_shown:
     st.markdown('<div class="bot-msg">Hi there! 👋 Ask me about temples, places, festivals or anything in Tamil Nadu tourism.</div>', unsafe_allow_html=True)
+    st.session_state.initial_bot_msg_shown = True
 
 for chat in st.session_state.chat_history:
     st.markdown(f'<div class="user-msg">{chat["question"]}</div>', unsafe_allow_html=True)
@@ -135,7 +136,7 @@ for chat in st.session_state.chat_history:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ------------------------------
-# Chat Input & API Request
+# Chat Input
 # ------------------------------
 query = st.chat_input("Type your message here...")
 
@@ -153,7 +154,7 @@ if query and query.strip():
         answer = f"🚫 Connection error: {e}"
 
     st.session_state.chat_history.append({"question": query, "answer": answer})
-    st.rerun()
+    st.experimental_rerun()
 
 # ------------------------------
 # Footer
